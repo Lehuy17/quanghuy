@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Greeting Card</title>
+    <style>
+        @keyframes snow {
+            0% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes moveSanta {
+            0% {
+                left: -20%;
+            }
+            100% {
+                left: 120%;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://i.pinimg.com/736x/d7/78/e7/d778e741568280dfe6ad2ed294ed37e1.jpg') center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: snow 5s linear infinite;
+        }
+
+        .snowflake:nth-child(1) {
+            left: 10%;
+            animation-duration: 6s;
+        }
+
+        .snowflake:nth-child(2) {
+            left: 30%;
+            animation-duration: 4s;
+        }
+
+        .snowflake:nth-child(3) {
+            left: 50%;
+            animation-duration: 5s;
+        }
+
+        .snowflake:nth-child(4) {
+            left: 70%;
+            animation-duration: 3s;
+        }
+
+        .snowflake:nth-child(5) {
+            left: 90%;
+            animation-duration: 6s;
+        }
+
+        .card {
+            background: url('https://i.pinimg.com/736x/5f/cc/4e/5fcc4e0b083fc1e0b3a06941aa2e1194.jpg') center/cover no-repeat;
+            width: 300px;
+            height: 200px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .letter {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: url('https://i.pinimg.com/736x/10/69/81/106981676db5669e7d773f3d9dde1c68.jpg') center/cover no-repeat;
+            border: 2px solid #d32f2f;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2em;
+            color: #333;
+            display: none;
+            animation: slideUp 1s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                top: 100%;
+            }
+            to {
+                top: 0%;
+            }
+        }
+
+        .santa {
+            position: absolute;
+            bottom: 20px;
+            left: -20%;
+            width: 150px;
+            animation: moveSanta 10s linear infinite, bounce 2s infinite;
+        }
+
+        .reindeer {
+            position: absolute;
+            bottom: 20px;
+            left: 120%;
+            width: 150px;
+            animation: moveSanta 10s linear infinite, bounce 2s infinite;
+            animation-delay: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <h1>Giáng Sinh Vui Vẻ 🎄</h1>
+    <div class="snow">
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+    </div>
+    <div class="card" onclick="revealLetter()">
+        <h2>Open Me!</h2>
+        <div class="letter" id="letter">
+            <p id="greeting">Merry Christmas!</p>
+        </div>
+    </div>
+    <img src="https://i.pinimg.com/originals/01/38/f2/0138f201ebeb7bc4c30a7207d48e9d4e.png" alt="Santa" class="santa">
+    <img src="https://e7.pngegg.com/pngimages/84/84/png-clipart-reindeer-rudolph-santa-claus-reindeer.png" alt="Reindeer" class="reindeer">
+
+    <script>
+        const greetings = [
+            "Wishing you a season filled with warmth and cheer!",
+            "May your Christmas be merry and your New Year bright!",
+            "Joy to the world, and joy to you this Christmas!",
+            "Sending love and happiness your way this festive season!",
+            "Hope your holidays sparkle with moments of laughter and love!",
+            "May the magic of Christmas fill your heart with peace and joy!",
+            "Celebrate this season with those who bring joy to your heart!",
+            "Here's to a holiday season full of fun, laughter, and memories!",
+            "May the beauty of the season bring you peace and happiness!",
+            "Wishing you all the timeless treasures of Christmas!"
+        ];
+
+        let letterRevealed = false;
+
+        function revealLetter() {
+            if (!letterRevealed) {
+                const randomIndex = Math.floor(Math.random() * greetings.length);
+                document.getElementById('greeting').textContent = greetings[randomIndex];
+                document.getElementById('letter').style.display = 'block';
+                letterRevealed = true;
+            }
+        }
+    </script>
+</body>
+</html>
